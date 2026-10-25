@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/i-choice-food/"
+title = "i-choice food"
+description = "A responsive Filipino food discovery app for exploring local dishes, sample restaurant and street-food listings, recipes, and favorites."
+version = "1.0.0"
+id = "artifacts/i-choice-food"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/i-choice-food/" ]
+localPort = 19011
+
+[services.development]
+run = "pnpm --filter @workspace/i-choice-food run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/i-choice-food", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/i-choice-food/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19011"
+BASE_PATH = "/i-choice-food/"

@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: favorites
+    description: Saved Filipino dishes
 paths:
   /healthz:
     get:
@@ -24,6 +26,57 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /favorites:
+    get:
+      operationId: listFavorites
+      tags: [favorites]
+      summary: List the signed-in user's favorite dishes
+      responses:
+        "200":
+          description: Favorites
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Favorite"
+        "401":
+          description: Authentication required
+    put:
+      operationId: addFavorite
+      tags: [favorites]
+      summary: Save a dish to favorites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FavoriteInput"
+      responses:
+        "200":
+          description: Favorite saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Favorite"
+        "401":
+          description: Authentication required
+  /favorites/{foodId}:
+    delete:
+      operationId: removeFavorite
+      tags: [favorites]
+      summary: Remove a dish from favorites
+      parameters:
+        - name: foodId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Favorite removed
+        "401":
+          description: Authentication required
 components:
   schemas:
     HealthStatus:
@@ -33,4 +86,23 @@ components:
           type: string
       required:
         - status
+    Favorite:
+      type: object
+      properties:
+        foodId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - foodId
+        - createdAt
+    FavoriteInput:
+      type: object
+      properties:
+        foodId:
+          type: string
+          minLength: 1
+      required:
+        - foodId
 
