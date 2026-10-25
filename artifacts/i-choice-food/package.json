@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
-    "build": "vite build --config vite.config.ts",
+    "build": "vite build --config vite.config.ts && cp dist/public/index.html dist/public/404.html",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
@@ -39,16 +39,13 @@
     "@radix-ui/react-toggle-group": "^1.1.3",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@replit/vite-plugin-cartographer": "catalog:",
-    "@replit/vite-plugin-dev-banner": "catalog:",
     "@replit/vite-plugin-runtime-error-modal": "catalog:",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "catalog:",
-    "@tanstack/react-query": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "@workspace/api-client-react": "workspace:*",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "cmdk": "^1.1.1",
@@ -73,9 +70,5 @@
     "vite": "catalog:",
     "wouter": "^3.3.5",
     "zod": "catalog:"
-  },
-  "dependencies": {
-    "@clerk/react": "^6.18.1",
-    "@clerk/themes": "^2.4.57"
   }
 }
